@@ -29,10 +29,12 @@ class Movies extends Component {
   render() {
     const { length: count } = this.state.movies;
     const { movies, currentPage, PageSize } = this.state;
+    if (count === 0) return <p>There are no movies in the database.</p>;
     return (
       <div className="row">
         <div className="col-2"></div>
         <div className="col">
+          <p>Showin {count} movies in the list.</p>
           <table className="table">
             <thead>
               <tr>
