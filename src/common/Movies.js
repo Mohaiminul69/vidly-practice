@@ -6,6 +6,9 @@ import Pagination from "./Pagination";
 class Movies extends Component {
   state = {
     movies: [],
+    genres: [],
+    currentPage: 1,
+    PageSize: 4,
   };
   componentDidMount() {
     this.setState({ movies: getMovies() });
@@ -20,8 +23,12 @@ class Movies extends Component {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
   };
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
+  };
   render() {
-    const { movies } = this.state;
+    const { length: count } = this.state.movies;
+    const { movies, currentPage, PageSize } = this.state;
     return (
       <div className="row">
         <div className="col-2"></div>
@@ -62,7 +69,12 @@ class Movies extends Component {
               ))}
             </tbody>
           </table>
-          <Pagination />
+          <Pagination
+            itemsCount={count}
+            currentPage={currentPage}
+            PageSize={PageSize}
+            onPageChange={this.handlePageChange}
+          />
         </div>
       </div>
     );
